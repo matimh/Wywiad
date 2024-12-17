@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wywiad Świąteczny</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(125deg, #0a2342 0%, #1c4b82 50%, #2a6cb2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Lato', sans-serif;
+            color: #fff;
+            padding: 20px;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: transparent;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 50px 160px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            animation: snow 8s linear infinite;
+            opacity: 0.7;
+        }
+
+        .snow::before {
+            content: '';
+            position: fixed;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            animation: snow 12s linear infinite;
+            animation-delay: -6s;
+        }
+
+        @keyframes snow {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(200px); }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .title-decoration {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 15px rgba(255, 255, 255, 0.2);
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        h1:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8em;
+            color: #c8e7ff;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        h2:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .interview-container {
+            position: relative;
+            padding: 20px;
+        }
+
+        .question-counter {
+            text-align: center;
+            font-size: 1.2em;
+            color: #4a9eff;
+            margin-bottom: 30px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            animation: pulse 2s infinite;
+        }
+
+        .question-box {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            font-size: 1.6em;
+            line-height: 1.6;
+            text-align: center;
+            color: #fff;
+            font-weight: 300;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #1a4b82, #2a6cb2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 40px;
+            border-radius: 30px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: linear-gradient(45deg, #2a6cb2, #3d8ad9);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+        }
+
+        .nav-btn:active:not(:disabled) {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(45deg, #666, #888);
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #c8e7ff;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .christmas-decoration {
+            font-size: 2em;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            .question {
+                font-size: 1.3em;
+            }
+
+            .nav-btn {
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="snow"></div>
+    <div class="container">
+        <header>
+            <div class="title-decoration">❄️</div>
+            <h1>Świąteczny Wywiad</h1>
+            <h2>z IMIE NAZWISKO</h2>
+        </header>
+
+        <main>
+            <div class="interview-container">
+                <div class="question-counter">PYTANIE <span id="currentQuestion">1</span> / 15</div>
+                <div class="question-box" id="questionBox">
+                    <p class="question" id="currentQuestionText"></p>
+                </div>
+                <div class="navigation-buttons">
+                    <button onclick="previousQuestion()" id="prevBtn" class="nav-btn">POPRZEDNIE</button>
+                    <button onclick="nextQuestion()" id="nextBtn" class="nav-btn">NASTĘPNE</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="christmas-decoration">✨ 🎄 ✨</div>
+            <p>2021-2024 Matimh.fun Copyright | Wykonano przez Mateusza M</p>
+        </footer>
+    </div>
+
+    <script>
+        const questions = [
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie",
+            "Tutaj wklej pytanie"
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function updateQuestion() {
+            const questionBox = document.getElementById('questionBox');
+            questionBox.style.opacity = '0';
+            questionBox.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+                document.getElementById('currentQuestionText').textContent = questions[currentQuestionIndex];
+                document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+                document.getElementById('nextBtn').disabled = currentQuestionIndex === questions.length - 1;
+                
+                questionBox.style.opacity = '1';
+                questionBox.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                updateQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateQuestion();
+            }
+        }
+
+        updateQuestion();
+    </script>
+</body>
+</html> 
